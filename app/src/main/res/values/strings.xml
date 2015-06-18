@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">X-Viewer</string>
+    <string name="share">Share me!</string>
+    <string name="download">Download!</string>
+    <string name="saved_comics">View Saved Comics!</string>
+    <string name="explainXKCD">ExplainXKCD!</string>
+</resources>
