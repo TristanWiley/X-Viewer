@@ -5,11 +5,9 @@
     android:layout_height="match_parent"
     android:background="@color/material_orange">
 
-    <ImageView
+    <terranovaproductions.newcomicreader.TouchImageView
         android:id="@+id/fullScreenImage"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_gravity="center"
-        android:scaleType="fitCenter"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </RelativeLayout>
