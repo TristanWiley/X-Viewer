@@ -8,8 +8,8 @@ android {
         applicationId "terranovaproductions.newcomicreader"
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 7
-        versionName "1.2"
+        versionCode 8
+        versionName "1.5"
     }
     buildTypes {
         release {
@@ -24,7 +24,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.2.0'
     compile 'com.google.android.gms:play-services:7.5.0'
     compile 'com.google.code.gson:gson:2.3.1'
-    compile 'com.github.chrisbanes.photoview:library:1.2.3'
     compile 'com.koushikdutta.ion:ion:2.1.4'
     compile 'com.android.support:support-v4:22.2.0'
     compile 'com.android.support:recyclerview-v7:22.2.0'
