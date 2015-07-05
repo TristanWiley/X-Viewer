@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:ads="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/comicView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
-    <RelativeLayout
-        android:id="@+id/downloadChild"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1">
 
         <TextView
             android:id="@+id/title"
@@ -19,6 +12,8 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:gravity="center_horizontal"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
             android:text="Title"
             android:textAppearance="?android:textAppearanceLarge" />
 
@@ -28,6 +23,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/title"
             android:layout_centerHorizontal="true"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
             android:layout_gravity="center_horizontal"
             android:fadeScrollbars="false"
             android:gravity="center"
@@ -41,60 +38,54 @@
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentBottom="true"
             android:layout_below="@+id/alt"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
             android:adjustViewBounds="false"
-            android:scaleType="fitCenter" />
+            android:scaleType="fitCenter"
+            android:layout_above="@+id/buttonChild" />
 
-    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/buttonChild"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        style="@android:style/DeviceDefault.SegmentedButton"
+        android:layout_alignParentStart="true">
 
             <ImageButton
+                android:contentDescription="Random Comic"
                 android:id="@+id/randomButton"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:minHeight="0dp"
+                android:minWidth="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:adjustViewBounds="true"
+                android:layout_weight="1"
                 android:src="@drawable/random" />
 
             <ImageButton
+                android:contentDescription="Search for Comic"
                 android:id="@+id/searchButton"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:minHeight="0dp"
+                android:minWidth="0dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:adjustViewBounds="true"
+                android:layout_weight="1"
                 android:src="@drawable/search" />
 
             <ImageButton
+                android:contentDescription="View in Browser"
                 android:id="@+id/browserButton"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:minHeight="0dp"
+                android:minWidth="0dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:adjustViewBounds="true"
+                android:layout_weight="1"
                 android:src="@drawable/browseropen" />
-        </RelativeLayout>
-
-        <com.google.android.gms.ads.AdView
-            android:id="@+id/adMob"
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
-            ads:adSize="BANNER"
-            ads:adUnitId="ca-app-pub-8228328083341151/6184148228" />
 
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

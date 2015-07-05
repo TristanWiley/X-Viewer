@@ -2,8 +2,12 @@
 <resources>
 
     <string name="app_name">X-Viewer</string>
+    <string name="settings">Settings</string>
     <string name="share">Share me!</string>
     <string name="download">Download!</string>
     <string name="saved_comics">View Saved Comics!</string>
     <string name="explainXKCD">ExplainXKCD!</string>
+
+    <string name="default_share">Shared with X-Viewer. https://play.google.com/store/apps/details?id=terranovaproductions.newcomicreader</string>
+    <string name="add_widget">Add widget</string>
 </resources>
