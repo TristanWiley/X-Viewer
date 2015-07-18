@@ -25,17 +25,20 @@
             android:name=".FullZoom"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
         <activity android:name=".ImageGrid" />
-        <activity android:name=".ShareView" />
 
-        <receiver android:name=".xkcdWidget" >
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
+        <!--<receiver android:name=".xkcdWidget" >-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />-->
+            <!--</intent-filter>-->
 
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/xkcd_widget_info" />
-        </receiver>
+            <!--<meta-data-->
+                <!--android:name="android.appwidget.provider"-->
+                <!--android:resource="@xml/xkcd_widget_info" />-->
+        <!--</receiver>-->
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="78080546a3f22a62291cdce44823e052c09e3dbf" />
 
     </application>
 

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="material_orange">#FFC107</color>
-    <color name="white">#000000</color>
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+    <color name="action_bar_background">#353E46</color>
+    <color name="background_main">#DDEEF5</color>
 </resources>

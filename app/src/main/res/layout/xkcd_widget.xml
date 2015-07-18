@@ -7,6 +7,19 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/widget_comic"
-        android:layout_centerInParent="true"/>
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/widget_alt" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/default_alt"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/widget_alt"
+        android:maxLines="4"
+        android:scrollbars="vertical"
+        android:gravity="center_horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

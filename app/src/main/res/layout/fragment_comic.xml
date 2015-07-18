@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:id="@+id/comicView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/background_main">
 
         <TextView
             android:id="@+id/title"
@@ -14,7 +16,7 @@
             android:gravity="center_horizontal"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
-            android:text="Title"
+            android:text="@string/default_title"
             android:textAppearance="?android:textAppearanceLarge" />
 
         <TextView
@@ -31,7 +33,7 @@
             android:maxLines="4"
             android:paddingBottom="13dp"
             android:scrollbars="vertical"
-            android:text="Alt Text"
+            android:text="@string/default_alt"
             android:textAppearance="?android:textAppearanceMedium"/>
 
         <ImageView
@@ -42,50 +44,56 @@
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:adjustViewBounds="false"
-            android:scaleType="fitCenter"
-            android:layout_above="@+id/buttonChild" />
+            android:scaleType="fitCenter" />
 
 
-    <LinearLayout
-        android:id="@+id/buttonChild"
+
+    <terranovaproductions.newcomicreader.FloatingActionMenu
+        android:id="@+id/fab_menu"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        style="@android:style/DeviceDefault.SegmentedButton"
-        android:layout_alignParentStart="true">
+        android:layout_height="match_parent"
+        android:background="#88FFFFFF"
+        android:padding="16dp">
 
-            <ImageButton
-                android:contentDescription="Random Comic"
-                android:id="@+id/randomButton"
-                android:layout_width="0dp"
-                android:minHeight="0dp"
-                android:minWidth="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/random" />
+        <!--First button as menu button-->
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add_white_24dp"
+            fab:fabSize="normal"
+            android:id="@+id/fab_main" />
 
-            <ImageButton
-                android:contentDescription="Search for Comic"
-                android:id="@+id/searchButton"
-                android:layout_width="0dp"
-                android:minHeight="0dp"
-                android:minWidth="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/search" />
+        <!-- Other button as menu items-->
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_random"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/default_random"
+            android:paddingBottom="@dimen/menu_button_margin"
+            android:src="@drawable/ic_random"
+            fab:fabSize="mini"/>
 
-            <ImageButton
-                android:contentDescription="View in Browser"
-                android:id="@+id/browserButton"
-                android:layout_width="0dp"
-                android:minHeight="0dp"
-                android:minWidth="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/browseropen" />
 
-    </LinearLayout>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/default_search"
+            android:paddingBottom="@dimen/menu_button_margin"
+            android:src="@drawable/ic_search"
+            fab:fabSize="mini"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_browser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/default_browser"
+            android:src="@drawable/ic_open_browser"
+            android:paddingBottom="@dimen/menu_button_margin"
+            fab:fabSize="mini"/>
+
+    </terranovaproductions.newcomicreader.FloatingActionMenu>
+
+
 
 </RelativeLayout>

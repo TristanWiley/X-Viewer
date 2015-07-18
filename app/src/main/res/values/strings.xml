@@ -7,6 +7,12 @@
     <string name="download">Download!</string>
     <string name="saved_comics">View Saved Comics!</string>
     <string name="explainXKCD">ExplainXKCD!</string>
+    <string name="default_title">Title</string>
+    <string name="default_alt">Hover Text</string>
+    <string name="default_random">Random Comic</string>
+    <string name="default_browser">View in Browser</string>
+    <string name="default_search">Enter Comic Number or Term</string>
+
 
     <string name="default_share">Shared with X-Viewer. https://play.google.com/store/apps/details?id=terranovaproductions.newcomicreader</string>
     <string name="add_widget">Add widget</string>

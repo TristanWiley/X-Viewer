@@ -14,6 +14,7 @@
         android:layout_marginRight="5dp"
         card_view:cardElevation="0.01dp"
         android:layout_marginBottom="0dp">
+
         <RelativeLayout
             android:id="@+id/top_layout"
             android:layout_width="165dp"
@@ -25,17 +26,23 @@
                 android:layout_height="fill_parent"
                 android:scaleType="fitCenter"
                 android:layout_above="@+id/tv_species" />
-            <TextView
+            <terranovaproductions.newcomicreader.AutoScrollingTextview
                 android:id="@+id/tv_species"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:paddingLeft="5dp"
                 android:paddingRight="2dp"
                 android:layout_gravity="bottom"
                 android:gravity="center_vertical"
                 android:background="#ff444444"
+
+                android:maxLines="1"
+                android:scrollHorizontally="true"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+
                 android:textColor="#fff"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:text="Comic Name"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
