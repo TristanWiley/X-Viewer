@@ -16,4 +16,18 @@
 
     <string name="default_share">Shared with X-Viewer. https://play.google.com/store/apps/details?id=terranovaproductions.newcomicreader</string>
     <string name="add_widget">Add widget</string>
+
+    <string-array name="queries_latest">
+        <item>latest</item>
+        <item>last</item>
+        <item>newest</item>
+        <item>today</item>
+    </string-array>
+
+    <string-array name="queries_first">
+        <item>first</item>
+        <item>start</item>
+
+    </string-array>
+
 </resources>

@@ -5,10 +5,10 @@
 
     <item
         android:id="@+id/action_search"
-        android:title="@string/default_search"
         android:icon="@drawable/ic_search"
-        app:showAsAction="collapseActionView|always"
-        app:actionViewClass="android.support.v7.widget.SearchView" />
+        android:title="@string/default_search"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="collapseActionView|always" />
 
     <item
         android:id="@+id/action_share"
@@ -18,7 +18,7 @@
     <item
         android:id="@+id/action_gallery"
         android:title="@string/saved_comics"
-        app:showAsAction="never"/>
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/action_download"
@@ -32,26 +32,26 @@
         app:showAsAction="never" />
 
     <!--<item-->
-        <!--android:id="@+id/action_first"-->
-        <!--android:icon="@drawable/ic_action_previous"-->
-        <!--android:title="First Comic"-->
-        <!--app:showAsAction="always" />-->
+    <!--android:id="@+id/action_first"-->
+    <!--android:icon="@drawable/ic_action_previous"-->
+    <!--android:title="First Comic"-->
+    <!--app:showAsAction="always" />-->
 
     <!--<item-->
-        <!--android:id="@+id/action_previous"-->
-        <!--android:icon="@drawable/ic_action_rewind"-->
-        <!--android:title="Previous Comic"-->
-        <!--app:showAsAction="always" />-->
+    <!--android:id="@+id/action_previous"-->
+    <!--android:icon="@drawable/ic_action_rewind"-->
+    <!--android:title="Previous Comic"-->
+    <!--app:showAsAction="always" />-->
 
     <!--<item-->
-        <!--android:id="@+id/action_next"-->
-        <!--android:icon="@drawable/ic_action_fast_forward"-->
-        <!--android:title="Next Comic"-->
-        <!--app:showAsAction="always" />-->
+    <!--android:id="@+id/action_next"-->
+    <!--android:icon="@drawable/ic_action_fast_forward"-->
+    <!--android:title="Next Comic"-->
+    <!--app:showAsAction="always" />-->
 
     <!--<item-->
-        <!--android:id="@+id/action_latest"-->
-        <!--android:icon="@drawable/ic_action_next"-->
-        <!--android:title="Latest Comic"-->
-        <!--app:showAsAction="always" />-->
+    <!--android:id="@+id/action_latest"-->
+    <!--android:icon="@drawable/ic_action_next"-->
+    <!--android:title="Latest Comic"-->
+    <!--app:showAsAction="always" />-->
 </menu>

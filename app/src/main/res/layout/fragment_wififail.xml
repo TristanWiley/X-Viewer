@@ -5,39 +5,39 @@
     android:orientation="vertical">
 
     <Button
+        android:id="@+id/savedComics"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/savedComics"
-        android:text="View Saved Comics"
         android:layout_below="@+id/retryButton"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:text="View Saved Comics" />
 
 
     <TextView
         android:id="@+id/wifiError"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
         android:gravity="center"
         android:text="This app cannot work without an internet connection! Please connect to one and try again"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
         android:id="@+id/wifiSettings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Open Wireless Settings"
         android:layout_below="@+id/wifiError"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:text="Open Wireless Settings" />
 
     <Button
         android:id="@+id/retryButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Retry"
         android:layout_below="@+id/wifiSettings"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:text="Retry" />
 
 </RelativeLayout>

@@ -1,25 +1,26 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:padding="@dimen/widget_margin">
 
 
     <ImageView
+        android:id="@+id/widget_comic"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/widget_comic"
-        android:layout_centerHorizontal="true"
-        android:layout_above="@+id/widget_alt" />
+        android:layout_above="@+id/widget_alt"
+        android:layout_centerHorizontal="true" />
 
     <TextView
+        android:id="@+id/widget_alt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/default_alt"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/widget_alt"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
         android:maxLines="4"
         android:scrollbars="vertical"
-        android:gravity="center_horizontal"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:text="@string/default_alt"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

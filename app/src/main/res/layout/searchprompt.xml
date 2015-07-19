@@ -16,6 +16,5 @@
         android:id="@+id/editTextDialogUserInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="number">
-    </EditText>
+        android:inputType="number"></EditText>
 </LinearLayout>
