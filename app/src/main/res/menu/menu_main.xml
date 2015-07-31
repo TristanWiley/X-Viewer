@@ -21,12 +21,6 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_download"
-        android:icon="@drawable/ic_action_download"
-        android:title="@string/download"
-        app:showAsAction="ifRoom" />
-
-    <item
         android:id="@+id/explainxkcd"
         android:title="@string/explainXKCD"
         app:showAsAction="never" />

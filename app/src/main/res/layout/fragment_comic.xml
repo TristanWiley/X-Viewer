@@ -11,13 +11,13 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
         android:gravity="center_horizontal"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:text="@string/default_title"
-        android:textAppearance="?android:textAppearanceLarge" />
+        android:textAppearance="?android:textAppearanceLarge"
+        android:layout_below="@+id/toolbar"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/alt"
@@ -74,12 +74,12 @@
 
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_search"
+            android:id="@+id/fab_download"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/default_search"
+            android:contentDescription="@string/download"
             android:paddingBottom="@dimen/menu_button_margin"
-            android:src="@drawable/ic_search"
+            android:src="@drawable/ic_download"
             fab:fabSize="mini" />
 
         <android.support.design.widget.FloatingActionButton
