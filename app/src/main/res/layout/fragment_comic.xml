@@ -1,97 +1,103 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fab="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/comicView"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_main"
+    android:id="@+id/fragmentComic"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:text="@string/default_title"
-        android:textAppearance="?android:textAppearanceLarge"
-        android:layout_below="@+id/toolbar"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:id="@+id/alt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/title"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center_horizontal"
-        android:fadeScrollbars="false"
-        android:gravity="center"
-        android:maxLines="4"
-        android:paddingBottom="13dp"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:scrollbars="vertical"
-        android:text="@string/default_alt"
-        android:textAppearance="?android:textAppearanceMedium" />
-
-    <ImageView
-        android:id="@+id/imageView"
+    <android.support.design.widget.CoordinatorLayout
+        xmlns:fab="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/coordinatorLayout"
+        android:layout_height="0dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/alt"
-        android:adjustViewBounds="false"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:scaleType="fitCenter" />
+        android:layout_weight="1">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:text="Title"
+                android:textAppearance="?android:textAppearanceLarge"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:id="@+id/alt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/title"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:fadeScrollbars="false"
+                android:gravity="center"
+                android:maxLines="4"
+                android:textColor="@android:color/black"
+                android:paddingBottom="13dp"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:scrollbars="vertical"
+                android:text="Hover Text"
+                android:textAppearance="?android:textAppearanceMedium" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/alt"
+                android:adjustViewBounds="false"
+                android:layout_marginBottom="10dp"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:scaleType="fitCenter" />
 
 
-    <terranovaproductions.newcomicreader.FloatingActionMenu
-        android:id="@+id/fab_menu"
+        </RelativeLayout>
+
+        <com.getbase.floatingactionbutton.FloatingActionsMenu
+            android:id="@+id/famMain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_addButtonColorNormal="@color/material_orange"
+            fab:fab_addButtonSize="normal"
+            fab:fab_addButtonStrokeVisible="true"
+            fab:fab_expandDirection="up"
+            android:layout_gravity="bottom|end">
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_random"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_random"
+                fab:fab_colorNormal="@color/material_orange"
+                fab:fab_size="mini"/>
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_download"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_download"
+                fab:fab_colorNormal="@color/material_orange"
+                fab:fab_size="mini"/>
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_browser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_open_browser"
+                fab:fab_colorNormal="@color/material_orange"
+                fab:fab_size="mini"/>
+
+        </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/snackbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#88FFFFFF"
-        android:padding="16dp">
-
-        <!--First button as menu button-->
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_main"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_add_white_24dp"
-            fab:fabSize="normal" />
-
-        <!-- Other button as menu items-->
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_random"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/default_random"
-            android:paddingBottom="@dimen/menu_button_margin"
-            android:src="@drawable/ic_random"
-            fab:fabSize="mini" />
-
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_download"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/download"
-            android:paddingBottom="@dimen/menu_button_margin"
-            android:src="@drawable/ic_download"
-            fab:fabSize="mini" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab_browser"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/default_browser"
-            android:paddingBottom="@dimen/menu_button_margin"
-            android:src="@drawable/ic_open_browser"
-            fab:fabSize="mini" />
-
-    </terranovaproductions.newcomicreader.FloatingActionMenu>
-
-
-</RelativeLayout>
+        android:layout_height="wrap_content"/>
+</LinearLayout>

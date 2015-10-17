@@ -4,5 +4,6 @@
     <color name="black">#000000</color>
     <color name="white">#ffffff</color>
     <color name="action_bar_background">#353E46</color>
+    <color name="colorPrimary">#353E46</color>
     <color name="background_main">#DDEEF5</color>
 </resources>
