@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * Adapter for displaying CardView
  */
-public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder>{
+public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
     Context context;
     List<ComicItem> mItems;
 
@@ -31,11 +31,11 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder>{
         mItems = new ArrayList<ComicItem>();
         ComicItem comic = new ComicItem();
 
-        String dirPath = Environment.getExternalStorageDirectory().toString()+"/Comics/";
+        String dirPath = Environment.getExternalStorageDirectory().toString() + "/Comics/";
         File dir = new File(dirPath);
         final File[] filelist = dir.listFiles();
 
-        for (int i = 0; i < filelist.length; ++i){
+        for (int i = 0; i < filelist.length; ++i) {
             comic = new ComicItem();
             comic.setName(filelist[i].getName());
             comic.setThumbnail(filelist[i].getAbsolutePath());
@@ -70,13 +70,13 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder>{
     @Override
     public int getItemCount() {
         return mItems.size();
-            }
+    }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements GestureDetector.OnGestureListener{
-        private GestureDetectorCompat GesterDetect;
-
+    class ViewHolder extends RecyclerView.ViewHolder implements GestureDetector.OnGestureListener {
         public ImageView imgThumbnail;
         public TextView tvspecies;
+        private GestureDetectorCompat GesterDetect;
+
         public ViewHolder(View itemView) {
             super(itemView);
             GesterDetect = new GestureDetectorCompat(context, this);
@@ -86,9 +86,10 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder>{
                     return true;
                 }
             });
-            imgThumbnail = (ImageView)itemView.findViewById(R.id.img_thumbnail);
-            tvspecies = (TextView)itemView.findViewById(R.id.tv_species);
+            imgThumbnail = (ImageView) itemView.findViewById(R.id.img_thumbnail);
+            tvspecies = (TextView) itemView.findViewById(R.id.tv_species);
         }
+
         @Override
         public boolean onDown(MotionEvent e) {
             return false;

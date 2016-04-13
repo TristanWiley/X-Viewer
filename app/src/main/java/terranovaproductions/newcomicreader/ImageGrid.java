@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView;
 /**
  * Made by Tristan Wiley
  */
-public class ImageGrid extends AppCompatActivity{
+public class ImageGrid extends AppCompatActivity {
     RecyclerView mRecyclerView;
     RecyclerView.LayoutManager mLayoutManager;
     RecyclerView.Adapter mAdapter;
@@ -23,7 +23,7 @@ public class ImageGrid extends AppCompatActivity{
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
         // Calling the RecyclerView
-        mRecyclerView = (RecyclerView)findViewById(R.id.recycler_view);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
 
         // The number of Columns

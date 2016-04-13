@@ -5,43 +5,28 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Typeface;
-import android.net.Uri;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.text.Layout;
-import android.text.StaticLayout;
-import android.text.TextPaint;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.SearchView;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.util.Random;
 
 /**
  * Main fragment containing all Comic stuff. Tristan Wiley
@@ -50,352 +35,228 @@ import java.util.Random;
 public class ComicFragment extends Fragment {
     TextView titleView;
     TextView altText;
+
     ImageView iv;
+
     int num;
+    int latest;
+    int position = 1;
+
     String title;
     String url;
     String description;
-    int latest;
-    ImageButton searchButton;
-    ImageButton randomButton;
-    ImageButton browserButton;
+
     SharedPreferences prefs;
 
+    Typeface xkcdFont;
+    Typeface altFont;
+
+    SearchView sv;
+    MenuItem mSearchMenuItem;
+
+    CoordinatorLayout coordinatorLayoutView;
+
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle bundle) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, @Nullable Bundle bundle) {
         super.onCreateView(inflater, null, bundle);
-        setHasOptionsMenu(true);
-        ((MainActivity) getActivity())
-                .setActionBarTitle("XKCD");
+
+        //Inflate the layout
         return inflater.inflate(R.layout.fragment_comic, container, false);
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getActivity().getMenuInflater().inflate(R.menu.menu_main, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_first) {
-            loadComic("http://xkcd.com/1/info.0.json");
-        } else if (id == R.id.action_previous) {
-                if (num == 1) {
-                Toast.makeText(getActivity(), "No more comics!", Toast.LENGTH_SHORT).show();
-            } else {
-                int nextNum;
-                if (num != 405) {
-                    nextNum = num - 1;
-                } else {
-                    nextNum = 403;
-                }
-                String nextUrl = "http://xkcd.com/" + String.valueOf(nextNum) + "/info.0.json";
-                loadComic(nextUrl);
-            }
-        } else if (id == R.id.action_next) {
-            int nextNum;
-            if (num != 403) {
-                nextNum = num + 1;
-            } else {
-                nextNum = 405;
-            }
-            String nextUrl = "http://xkcd.com/" + String.valueOf(nextNum) + "/info.0.json";
-            loadComic(nextUrl);
-
-        } else if (id == R.id.action_latest) {
-            loadComic("http://xkcd.com/info.0.json");
-        } else if (id == R.id.action_download) {
-            if (url != null) {
-
-                Ion.with(this).load(url).withBitmap().asBitmap()
-                        .setCallback(new FutureCallback<Bitmap>() {
-                            @Override
-                            public void onCompleted(Exception e, Bitmap result) {
-                                int h = result.getHeight();
-                                int w = result.getWidth();
-                                TextPaint tp = new TextPaint(Color.WHITE);
-                                StaticLayout sl = new StaticLayout(description, tp, w, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
-                                Bitmap b = Bitmap.createBitmap(w, h + sl.getHeight()+10, Bitmap.Config.ARGB_8888);
-                                Canvas c = new Canvas(b);
-                                Paint p = new Paint(Color.WHITE);
-                                c.drawBitmap(result, 0, 0, p);
-                                c.translate(0, c.getHeight() - sl.getHeight());
-                                sl.draw(c);
-                                iv.setImageBitmap(b);
-                            }
-
-
-//                        });
-//                Paint p = new Paint();
-//                p.setColor(Color.WHITE);
-//                p.setStyle(Paint.Style.FILL);
-//                Canvas c = new Canvas(image);
-//                c.drawPaint(p);
-////                view.draw(c);
-//                //Store to sdcard
-//                try {
-//                    String path = Environment.getExternalStorageDirectory().toString() + "/Comics";
-//                    File myFile = new File(path, title + ".png");
-//                    FileOutputStream out = new FileOutputStream(myFile);
-//
-//                    image.compress(Bitmap.CompressFormat.PNG, 90, out); //Output
-//                    Toast.makeText(getActivity(), "Saved!", Toast.LENGTH_SHORT).show();
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-                        });
-            } else {
-                Toast.makeText(getActivity(), "An error occured, cannot get comic", Toast.LENGTH_SHORT).show();
-            }
-
-
-        } else if (id == R.id.action_gallery){
-            Intent i = new Intent(getActivity(), ImageGrid.class);
-            startActivity(i);
-        }else if (id == R.id.action_share) {
-
-            //TODO Fix the share function
-
-            //Find the view we are after
-            RelativeLayout view = (RelativeLayout) getActivity().findViewById(R.id.downloadChild);
-            //Create a Bitmap with the same dimensions
-            Bitmap image = Bitmap.createBitmap(view.getWidth(),
-                    view.getHeight(),
-                    Bitmap.Config.RGB_565);
-            //Draw the view inside the Bitmap
-            Paint p = new Paint();
-            p.setColor(Color.WHITE);
-            p.setStyle(Paint.Style.FILL);
-            Canvas c = new Canvas(image);
-            c.drawPaint(p);
-            view.draw(c);
-
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            image.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            byte[] bytes = stream.toByteArray();
-
-            Intent share = new Intent(Intent.ACTION_SEND);
-            // If you want to share a png image only, you can do:
-            // setType("image/png"); OR for jpeg: setType("image/jpeg");
-            share.setType("image/*");
-            // Make sure you put example png image named myImage.png in your
-            // directory
-            share.putExtra(Intent.EXTRA_STREAM, bytes);
-            share.putExtra(Intent.EXTRA_TEXT, description);
-            startActivity(Intent.createChooser(share, "Share image to..."));
-
-        } else if (id == R.id.explainxkcd) {
-            String explainURL = "http://www.explainxkcd.com/wiki/index.php/" + num;
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(explainURL));
-            startActivity(browserIntent);
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-
-    @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        File f = new File(Environment.getExternalStorageDirectory().getPath() + "/Comics/");
-        if (!f.exists() && !f.isDirectory()) {
-            f.mkdirs();
-        }
-        AdView adView = (AdView) getActivity().findViewById(R.id.adMob);
-        //request TEST ads to avoid being disabled for clicking your own ads
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)// This is for emulators
-                        //test mode on DEVICE (this example code must be replaced with your device uniquq ID)
-                .addTestDevice("970E0F4DAD9C66416B9106AFD31C87F5") // Nexus 5
-                .build();
-        adView.loadAd(adRequest);
+
+        coordinatorLayoutView = (CoordinatorLayout) getActivity().findViewById(R.id.snackbar);
+
+        //Get the SharedPreferences saved null){
         prefs = getActivity().getSharedPreferences(
                 "terranovaproductions.newcomicreader", Context.MODE_PRIVATE);
-        int lastComic = prefs.getInt("COMIC_CURRENT", 0);
-        if (lastComic != 0){
-            loadComic("http://xkcd.com/" + String.valueOf(lastComic) + "/info.0.json");
-        }else{
-            loadComic("http://xkcd.com/info.0.json");
-        }
+
+
+        //Initialize the TextView for the title of the comic
         titleView = (TextView) getActivity().findViewById(R.id.title);
-        iv = (ImageView) getActivity().findViewById(R.id.imageView);
+        //Initialize the TextView for the hover text of the comic
         altText = (TextView) getActivity().findViewById(R.id.alt);
-        searchButton = (ImageButton) getActivity().findViewById(R.id.searchButton);
-        randomButton = (ImageButton) getActivity().findViewById(R.id.randomButton);
-        browserButton = (ImageButton) getActivity().findViewById(R.id.browserButton);
+
+        //Initialize the ImageView for the comic to be put in
+        iv = (ImageView) getActivity().findViewById(R.id.imageView);
 
 
-        searchButton.setOnClickListener(new View.OnClickListener() {
+        //Initialize the Typeface for the official font of xkcd.
+        xkcdFont = Typeface.createFromAsset(getActivity().getAssets(), "xkcdFont.otf");
+
+        //Set the title TextView to the official xkcd font.
+        titleView.setTypeface(xkcdFont);
+
+        //Initialize the DejaVuSans font for the hover text
+        altFont = Typeface.createFromAsset(getActivity().getAssets(), "DejaVuSans.ttf");
+
+        //Set the altText TextView's font to DejaVuSans
+        altText.setTypeface(altFont);
+
+        //Set an OnLongClickListener so when it is long pressed the option to copy the hover text appears in an AlertDialog
+        altText.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public void onClick(View arg0) {
-                if (getActivity() != null) {
-                    // get prompts.xml view
-                    LayoutInflater li = LayoutInflater.from(getActivity());
-                    View promptsView = li.inflate(R.layout.searchprompt, null);
+            public boolean onLongClick(View v) {
 
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                            getActivity());
+                //Create a new AlertDialog Builder
+                AlertDialog.Builder adb = new AlertDialog.Builder(getActivity());
 
-                    // set prompts.xml to alertdialog builder
-                    alertDialogBuilder.setView(promptsView);
+                //Set the title of the AlertDialog
+                adb.setTitle("Copy Hover Text");
 
-                    final EditText userInput = (EditText) promptsView
-                            .findViewById(R.id.editTextDialogUserInput);
+                //Set the message of the AlertDialog to ask if the user wants to copy the text
+                adb.setMessage("Are you sure you want to copy the hover text of this comic?");
 
-                    alertDialogBuilder
-                            .setCancelable(false)
-                            .setPositiveButton("OK",
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int id) {
-                                            String nextURL = "http://xkcd.com/" + userInput.getText() + "/info.0.json";
-                                            loadComic(nextURL);
-                                        }
-                                    })
-                            .setNegativeButton("Cancel",
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int id) {
-                                            dialog.cancel();
-                                        }
-                                    });
+                //If the user chooses yes, copies the hover text
+                adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        //Create a ClipboardManager to copy the text
+                        android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
 
-                    // create alert dialog
-                    AlertDialog alertDialog = alertDialogBuilder.create();
+                        //Copy the hover text to the clipboard
+                        android.content.ClipData clip = android.content.ClipData.newPlainText("Alt Text", altText.getText());
+                        clipboard.setPrimaryClip(clip);
 
-                    // show it
-                    alertDialog.show();
-
-
-                }
-            }
-        });
-        browserButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (getActivity() != null) {
-                    String comicXKCD = "http://xkcd.com/" + num + "/";
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(comicXKCD));
-                    startActivity(browserIntent);
-                }
-            }
-        });
-        randomButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (getActivity() != null) {
-                    Random r = new Random();
-                    int randomNum = r.nextInt(latest - 1) + 1;
-                    randomNum = Math.abs(randomNum);
-                    if (getActivity() != null) {
-                        if (randomNum != 404) {
-                            loadComic("http://xkcd.com/" + String.valueOf(randomNum) + "/info.0.json");
-                        } else {
-                            loadComic("http://xkcd.com/" + 506 + "/info.0.json");
-                        }
+                        //Tell the user that the text was copied.
+                        Snackbar.make(coordinatorLayoutView, "Hover text copied to clipboard", Snackbar.LENGTH_SHORT).show();
                     }
-                }
+                });
+
+                //If the users decides not to copy the text
+                adb.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        //Cancel the dialog and close it
+                        dialog.cancel();
+                    }
+                });
+                //Show this dialog
+                adb.show();
+                return false;
             }
         });
 
+        //Set an OnClickListener for the ImageView to open it in FullScreen on click
         iv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
+                //Create a new Intent to go to the FullScreen, Zoomable activity
                 Intent intent = new Intent(getActivity(), FullZoom.class);
-                intent.putExtra("FROM_MAIN", true);
+
+                //Tell the FullZoom activity it is not from the Adapter (The adapter shows the saved comics)
+                intent.putExtra("FROM_ADAPTER", false);
+
+                //Add the url location (Url) of the comic
                 intent.putExtra("IMAGE_LOCATION", url);
+
+                //Send the title of the comic to the FullZoom activity for in the ActionBar
                 intent.putExtra("IMAGE_TITLE", Integer.toString(num));
+
+                //Start the Intent
                 startActivity(intent);
             }
         });
 
+        //Set the movement method of the altText textView so it can scroll
         altText.setMovementMethod(new ScrollingMovementMethod());
-
-        iv.setOnTouchListener(new OnSwipeTouchListener() {
-            public boolean onSwipeRight() {
-                if (num == 1) {
-                    Toast.makeText(getActivity(), "No more comics!", Toast.LENGTH_SHORT).show();
-                } else {
-                    int nextNum;
-                    if (num != 405) {
-                        nextNum = num - 1;
-                    } else {
-                        nextNum = 403;
-                    }
-                    String nextUrl = "http://xkcd.com/" + String.valueOf(nextNum) + "/info.0.json";
-                    loadComic(nextUrl);
-
-                }
-                return true;
-            }
-
-            public boolean onSwipeLeft() {
-                int nextNum;
-                if (num != 403) {
-                    nextNum = num + 1;
-                } else {
-                    nextNum = 405;
-                }
-                String nextUrl = "http://xkcd.com/" + String.valueOf(nextNum) + "/info.0.json";
-
-                loadComic(nextUrl);
-                return true;
-            }
-        });
-
+        //TODO kopwetko
+        loadComic("http://xkcd.com/" + position + "/info.0.json");
 
     }
-    public void loadComic(String nextUrl){
-        Ion.with(getActivity())
-                .load("http://xkcd.com/info.0.json")
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
-                    @Override
-                    public void onCompleted(Exception e, JsonObject result) {
-                        JsonElement jnum = result.get("num");
-                        latest = jnum.getAsInt();
-                    }
-                });
-        Ion.with(getActivity())
-                .load(nextUrl)
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
-                    @Override
-                    public void onCompleted(Exception e, JsonObject result) {
-                        if (result != null) {
-                            JsonElement jtitle = result.get("title");
-                            JsonElement jdescription = result.get("alt");
-                            JsonElement jurl = result.get("img");
-                            JsonElement jnum = result.get("num");
 
-                            title = jtitle.getAsString();
+    @Override
+    public void onPause() {
+        super.onPause();
+        //When the app is paused (closed, etc) add the current latest comic to the SharedPreferences,
+        prefs.edit().putInt("COMIC_LATEST", latest).apply();
+    }
 
-                            description = jdescription.getAsString();
-                            url = jurl.getAsString();
-                            num = jnum.getAsInt();
-                            titleView.setText(title + " #" + num);
-                            altText.setText(description);
-                            if (getActivity() != null) {
-                                Ion.with(getActivity())
-                                        .load(url)
-                                        .withBitmap()
-                                        .fadeIn(true)
-                                        .intoImageView(iv);
-                            }
-                            altText.scrollTo(0, 0);
+    public void loadComic(final String nextUrl) {
+        //TODO add icons and functionality for news and links when available
+        //Initialize a Connectivity Manager and get the Network Information
+        ConnectivityManager connManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo mWifi = connManager.getActiveNetworkInfo();
 
-                            prefs.edit().putInt("COMIC_CURRENT", num).apply();
-
-                        } else {
-                            Toast.makeText(getActivity(), "Either you are not connect to the internet or the comic does not exist.", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-
+        if (sv != null) {
+            //Close the SearchView
+            MenuItemCompat.collapseActionView(mSearchMenuItem);
         }
-}
 
+        //Make sure there is an internet connection before fetching comics.
+        if (mWifi.isConnected()) {
+
+            //Load the next comic the user wants to see
+            Ion.with(getActivity())
+                    .load(nextUrl)
+                    .asJsonObject()
+                    .setCallback(new FutureCallback<JsonObject>() {
+                        @Override
+                        public void onCompleted(Exception e, JsonObject result) {
+                            if (result != null) {
+                                //Get the number of the comic as a JSONElement
+                                JsonElement jnum = result.get("num");
+
+                                //Get the title of the comic as a JSONElement
+                                JsonElement jtitle = result.get("title");
+
+                                JsonElement jdescription = result.get("alt");
+
+                                JsonElement jurl = result.get("img");
+
+                                //Get the number of the comic as an integer
+                                num = jnum.getAsInt();
+
+                                //Get the Title of the comic as a String
+                                title = jtitle.getAsString();
+
+                                //Get the hover text of the comic as a String
+                                description = jdescription.getAsString();
+
+                                //Get the url of the comic image as a String
+                                url = jurl.getAsString();
+
+                                //Set the title to the comic to it's TextView with the number of the comic
+                                titleView.setText(title + " - #" + num);
+
+                                //Set the hover text of the comic to it's TextView
+                                altText.setText(description);
+
+                                //Make sure the activity is loaded and set the image to the ImageView
+                                if (getActivity() != null) {
+                                    Ion.with(getActivity())
+                                            .load(url)
+                                            .withBitmap()
+                                            .fadeIn(true)
+                                            .intoImageView(iv);
+                                }
+
+                                //Make sure the hover text is scrolled to the top
+                                altText.scrollTo(0, 0);
+
+                                //Save the current comic in the share preferences for the next open
+                                prefs.edit().putInt("COMIC_CURRENT", num).apply();
+
+                            } else {
+                                Snackbar.make(coordinatorLayoutView, "This comic does not exist! Try again!", Snackbar.LENGTH_SHORT).show();
+                            }
+
+                        }
+                    });
+
+        } else {
+            //If there is no internet then replace the Fragment with the failed wifi Fragment.
+            getActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.container, new FailedWifiFragment())
+                    .commit();
+        }
+    }
+
+    public void setPosition(int p) {
+        position = p;
+    }
+
+}
